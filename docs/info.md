@@ -6,6 +6,12 @@ You can use markdown formatting here.
 
 -->
 
+## About this project
+
+This design was created as part of the **IEEE Division 1 Open Silicon Initiative** in Lagos, Nigeria, headed by **Emmanuel Innocent**. The initiative trains participants in modern digital integrated-circuit design — from RTL and FSM modelling through to a hardened ASIC layout — and partners with [Tiny Tapeout](https://tinytapeout.com) to provide a free silicon tapeout opportunity for completed projects.
+
+Without the programme there would be no realistic path for a student in Lagos to get a custom design fabricated on real silicon; the combination of the Open Silicon Initiative's instruction and Tiny Tapeout's shared shuttle makes that possible. This Water Level Controller is one of the projects produced through the programme.
+
 ## How it works
 
 This design is a 4-state finite-state machine that automatically controls a water pump from two binary level sensors.
