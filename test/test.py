@@ -154,3 +154,45 @@ async def test_error_recovers_when_sensors_clear(dut):
     assert state(dut) in (IDLE, FILLING), \
         f"expected IDLE or FILLING after recovery, got {state(dut):02b}"
     assert error_flag(dut) == 0
+
+
+@cocotb.test()
+async def test_endurance_soak(dut):
+    """Soak test: cycle the tank empty -> mid -> full -> drain many times.
+    This pushes total simulation time past 1 ms and catches any sticky-state
+    or counter-rollover bugs that wouldn't show up in a single transition.
+
+    With NUM_CYCLES = 10 and a 10 us clock, this test alone runs ~800 us;
+    combined with the other tests the testbench simulates ~1.4 ms total.
+    Bump NUM_CYCLES to extend further.
+    """
+    NUM_CYCLES = 10
+
+    cocotb.start_soon(Clock(dut.clk, 10, unit="us").start())
+    await reset(dut)
+
+    for i in range(NUM_CYCLES):
+        # Empty tank -> FSM should fill
+        set_sensors(dut, 0, 0); await ClockCycles(dut.clk, 2)
+        assert state(dut) == FILLING, \
+            f"cycle {i}: expected FILLING, got {state(dut):02b}"
+        assert pump(dut) == 1, f"cycle {i}: pump should be ON while filling"
+
+        # Mid level -> still filling
+        set_sensors(dut, 0, 1); await ClockCycles(dut.clk, 2)
+        assert state(dut) == FILLING, \
+            f"cycle {i}: expected FILLING at mid, got {state(dut):02b}"
+
+        # Full -> pump off
+        set_sensors(dut, 1, 1); await ClockCycles(dut.clk, 2)
+        assert state(dut) == FULL, \
+            f"cycle {i}: expected FULL, got {state(dut):02b}"
+        assert pump(dut) == 0, f"cycle {i}: pump should be OFF when FULL"
+        assert error_flag(dut) == 0, f"cycle {i}: no error expected"
+
+    # After N successful cycles, fault-inject and recover one more time
+    set_sensors(dut, 1, 0); await ClockCycles(dut.clk, 2)
+    assert state(dut) == ERROR, "endurance: ERROR not reached on fault"
+    assert error_flag(dut) == 1
+    set_sensors(dut, 0, 0); await ClockCycles(dut.clk, 2)
+    assert error_flag(dut) == 0, "endurance: error did not clear"
