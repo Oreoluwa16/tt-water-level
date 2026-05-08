@@ -1,9 +1,9 @@
 # Tiny Tapeout project information
-project:      "IEEE Division 1 Open Silicon Initiative Tapeout Project"
+project:      
   title:        "Water Level Controller"
   author:       "Ore-Oluwa Oluwatosin, Akeem Jr Odebiyi, Victor Awofegha, Ogunlowo Oluwasegunfunmi, Saka Suliat"
   discord:      ""
-  description:  "4-state FSM that drives a water pump from two level sensors, with an impossible-state error flag."
+  description:  "IEEE Division 1 Open Silicon Initiative Tapeout Project, this is a 4-state FSM that drives a water pump from two level sensors, with an impossible-state error flag."
   language:     "Verilog"
   clock_hz:     100000          # 100 kHz; the controller is purely sequential and works at any reasonable rate
 
