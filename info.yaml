@@ -1,7 +1,7 @@
 # Tiny Tapeout project information
 project:      "IEEE Division 1 Open Silicon Initiative Tapeout Project"
   title:        "Water Level Controller"
-  author:       "Ore-Oluwa"
+  author:       "Ore-Oluwa Oluwatosin, Akeem Jr Odebiyi, Victor Awofegha, Ogunlowo Oluwasegunfunmi, Saka Suliat"
   discord:      ""
   description:  "4-state FSM that drives a water pump from two level sensors, with an impossible-state error flag."
   language:     "Verilog"
