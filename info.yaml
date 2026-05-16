@@ -1,6 +1,6 @@
 # Tiny Tapeout project information
 project:      
-  title:        "Water Level Controller"
+  title:        "IEEE Open-silicon 2026 x NITHUB: Fluid Level Detector and Controller"
   author:       "Ore-Oluwa Oluwatosin, Akeem Jr Odebiyi, Victor Awofegha, Ogunlowo Oluwasegunfunmi, Saka Suliat"
   discord:      ""
   description:  "IEEE Division 1 Open Silicon Initiative Tapeout Project, this is a 4-state FSM that drives a water pump from two level sensors, with an impossible-state error flag."
